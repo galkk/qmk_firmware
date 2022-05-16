@@ -1,5 +1,22 @@
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+    POINTER_DEREFERENCE = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case POINTER_DEREFERENCE:
+        if (record->event.pressed) {
+            SEND_STRING("->");
+        }
+        break;
+    }
+    return true;
+};
+
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT_5x7(
         KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5, KC_NO,
@@ -38,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
         KC_NO, KC_NO, KC_UNDS, KC_DQUO, KC_QUOT, KC_CIRC, KC_F12,
         KC_NO, KC_NO, KC_AMPR, KC_PIPE, KC_EXLM, KC_EQL, KC_NO,
-        KC_NO, KC_TILD, KC_GRV, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_TILD, KC_GRV, KC_NO, KC_NO, POINTER_DEREFERENCE,
         KC_NO, KC_LPRN, KC_RPRN, KC_NO,
 
         KC_NO, KC_TRNS,
@@ -83,5 +100,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BTN1, KC_BTN2,
         KC_NO, KC_NO)
 };
-
-
