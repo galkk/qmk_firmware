@@ -17,8 +17,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // This dactyl has a bit weird layout, that doesn't map well to UI/order of buttons in the layout.
 // Those macroses help to have traditional approach: left -> right, row to bottom
-#define LEFT_THUMB_BLOCK(p1,p2,p3,p4,p5,p6)p4,p1,p5,p2,p6,p3
-#define RIGHT_THUMB_BLOCK(p1,p2,p3,p4,p5,p6)p3,p6,p2,p5,p3,p4
+#define LEFT_THUMB_BLOCK(p1,p2,p3,p4,p5,p6)p4, p1, p5, p2, p6, p3
+#define RIGHT_THUMB_BLOCK(p1,p2,p3,p4,p5,p6)p3, p6, p2, p5, p3, p4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT_5x7(
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[3] = LAYOUT_5x7(
         KC_NO, LCTL(KC_HOME), LCTL(KC_PGDN), LCTL(KC_PGUP), LCTL(KC_END), KC_NO, KC_NO,
-        KC_NO, KC_HOME, KC_PGDN, KC_PGUP, KC_END, LCTL(KC_NO), KC_NO,
+        KC_NO, KC_HOME, KC_PGDN, KC_PGUP, KC_END, LCTL(KC_F4), KC_NO,
         KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO,
         KC_NO, LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_UP), LCTL(KC_RGHT), KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO,
