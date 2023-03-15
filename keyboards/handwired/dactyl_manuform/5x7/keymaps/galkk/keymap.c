@@ -25,8 +25,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5, KC_NO,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_NO,
         KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_NO,
-        CAPS_WORD, KC_Z, KC_X, KC_C, KC_V, KC_B,
-        KC_NO, KC_NO, KC_NO, KC_LOCK,
+        QK_CAPS_WORD_TOGGLE, KC_Z, KC_X, KC_C, KC_V, KC_B,
+        KC_NO, KC_NO, KC_NO, QK_LOCK,
 
     // lower upper, left -> right
             KC_LSFT, MO(3),
