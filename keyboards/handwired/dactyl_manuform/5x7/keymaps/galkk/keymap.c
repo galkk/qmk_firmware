@@ -43,7 +43,7 @@
 #define WIN RGUI
 #define CTRL_ALT_T LCA_T
 #define WIN_SHIFT_T SGUI_T
-#define CTRL_SHIFT RCS
+#define CTRL_SHIFT_T RCS_T
 #define ALT_SHIFT RSA
 #define CTRL_ALT_SHIFT MEH
 #define CTRL_WIN(kc) MT(MOD_LCTL | MOD_RGUI, kc)
@@ -73,9 +73,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE_LAYER] = LONG_LAYOUT(
 
     _______, KC_1, KC_2, KC_3, KC_4, KC_5, _______,                                 _______, KC_6, KC_7, KC_8, KC_9, KC_0, WIN(KC_SPC),
-    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, _______,                                  _______, KC_Y, KC_U, KC_I, KC_O, WIN_SHIFT_T(KC_P), CTRL_SHIFT(_______),
+    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, _______,                                  _______, KC_Y, KC_U, KC_I, KC_O, WIN_SHIFT_T(KC_P), CTRL_ALT_T(_______),
     KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G, _______,                                  _______, KC_H, KC_J, KC_K, KC_L, WIN_T(KC_SCLN), CTRL_WIN(KC_QUOTE),
-    CAPS_WORD, KC_Z, KC_X, KC_C, KC_V, KC_B,                                        KC_N, KC_M, KC_COMM, KC_DOT, CTRL_ALT_T(KC_SLSH), ALT_SHIFT(_______),
+    CAPS_WORD, KC_Z, KC_X, KC_C, KC_V, KC_B,                                        KC_N, KC_M, KC_COMM, KC_DOT, CTRL_SHIFT_T(KC_SLSH), ALT_SHIFT(_______),
     _______, _______, _______, QK_LOCK,                                             MO(KEY_COMBINATIONS), KC_LBRC, KC_RBRC, CTRL_ALT_SHIFT(_______),
 
     MO(CURSOR), KC_LCTL, _______,                                                   _______, KC_LGUI, MO(CHARACTERS),
