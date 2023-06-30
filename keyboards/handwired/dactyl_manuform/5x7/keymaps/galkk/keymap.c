@@ -40,20 +40,6 @@
                                   r71, r72, r73) \
         )
 
-#define WIN RGUI
-#define CTRL_ALT_T LCA_T
-#define WIN_SHIFT_T SGUI_T
-#define CTRL_SHIFT_T RCS_T
-#define ALT_SHIFT RSA
-#define CTRL_ALT_SHIFT MEH
-#define CTRL_WIN(kc) MT(MOD_LCTL | MOD_RGUI, kc)
-#define CAPS_WORD QK_CAPS_WORD_TOGGLE
-
-#define BASE_LAYER          0
-#define CHARACTERS          1
-#define KEY_COMBINATIONS    2
-#define CURSOR              3
-
 enum custom_keycodes {
     POINTER_DEREFERENCE = SAFE_RANGE,
 };
@@ -69,6 +55,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
+#define CTRL_ALT_T LCA_T
+#define CTRL_SHIFT_T RCS_T
+#define CTRL_ALT_SHIFT MEH
+#define CTRL_WIN(kc) MT(MOD_LCTL | MOD_RGUI, kc)
+
+#define WIN RGUI
+#define WIN_SHIFT_T SGUI_T
+
+#define ALT_SHIFT RSA
+
+#define CAPS_WORD QK_CAPS_WORD_TOGGLE
+
+#define BASE_LAYER          0
+#define CHARACTERS          1
+#define CURSOR              2
+#define KEY_COMBINATIONS    3
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE_LAYER] = LONG_LAYOUT(
 
@@ -79,32 +82,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, QK_LOCK,                                             MO(KEY_COMBINATIONS), KC_LBRC, KC_RBRC, CTRL_ALT_SHIFT(_______),
 
     MO(CURSOR), KC_LCTL, _______,                                                   _______, KC_LGUI, MO(CHARACTERS),
-    KC_LSFT, KC_BSPC, KC_ENT,                                                       KC_RALT, KC_RSFT, KC_SPC
-
+    KC_LSFT, KC_BSPC, KC_ENT,                                                       KC_RSFT, KC_RALT, KC_SPC
+    
 ),
 
 [CHARACTERS] = LONG_LAYOUT(
 
     _______, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, _______,                            _______, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
-    _______, _______, _______, KC_CIRC, KC_BSLS, _______, _______,                  _______, _______, KC_UNDS, KC_QUOT, KC_DQUO, KC_CIRC, KC_F12,
+    _______, _______, _______, KC_CIRC, KC_BSLS, _______, _______,                  _______, _______, KC_UNDS, KC_QUOT, KC_DQUO, _______, KC_F12,
     _______, KC_DLR, KC_PLUS, KC_MINS, KC_ASTR, _______, _______,                   _______, KC_TILD, KC_AMPR, KC_PIPE, KC_EXLM, KC_EQL, _______,
     _______, KC_AT, KC_COLN, KC_HASH, KC_PERC, _______,                             _______, KC_GRV, _______, _______, _______, POINTER_DEREFERENCE,
-    _______, _______, KC_INSERT, KC_DELETE,                                         _______, KC_LPRN, KC_RPRN, _______,
+    _______, _______, _______, _______,                                             _______, KC_LPRN, KC_RPRN, _______,
 
-    _______, _______, _______,                                                      _______, _______, _______,
-    _______, _______, _______,                                                      _______, _______, _______
-
-),
-
-[KEY_COMBINATIONS] = LONG_LAYOUT(
-
-    _______, _______, _______, _______, _______, _______, _______,                  QK_BOOTLOADER, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______,                                             _______, _______, _______, _______,
-
-    _______, _______, _______,                                                      _______, _______, _______,
+    KC_INSERT, KC_DELETE, _______,                                                  _______, _______, _______,
     _______, _______, _______,                                                      _______, _______, _______
 
 ),
@@ -120,5 +110,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,                                                      _______, KC_BTN1, KC_BTN2,
     _______, _______, _______,                                                      _______, _______, _______
 
+),
+
+[KEY_COMBINATIONS] = LONG_LAYOUT(
+
+    _______, _______, _______, _______, _______, _______, _______,                  QK_BOOTLOADER, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______,                                             _______, _______, _______, _______,
+
+    _______, _______, _______,                                                      _______, _______, _______,
+    _______, _______, _______,                                                      _______, _______, _______
+
 )
+
 };
