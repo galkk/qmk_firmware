@@ -54,17 +54,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
-
-#define CTRL_ALT_T LCA_T
-#define CTRL_SHIFT_T RCS_T
-#define CTRL_ALT_SHIFT MEH
-#define CTRL_WIN(kc) MT(MOD_LCTL | MOD_LGUI, kc)
+                                                                                //  CTRL | ALT | SHIFT | WIN
+#define CTRL_ALT_T LCA_T                                                        //    X     X
+#define CTRL_SHIFT_T RCS_T                                                      //    X            X
+#define CTRL_ALT_SHIFT MEH                                                      //    X     X      X
+#define CTRL_WIN(kc) MT(MOD_LCTL | MOD_LGUI, kc)                                //    X                   X
+#define WIN_SHIFT_T SGUI_T                                                      //                 X      X
+#define ALT_SHIFT_T RSA_T                                                       //          X      X
 
 #define WIN RGUI
-#define WIN_SHIFT_T SGUI_T
-
-#define ALT_SHIFT_T RSA_T
-
 #define CAPS_WORD QK_CAPS_WORD_TOGGLE
 
 #define BASE_LAYER          0
