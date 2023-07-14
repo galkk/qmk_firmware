@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, WIN_SHIFT_T(KC_P), CTRL_ALT_T(_______),
     KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, WIN_T(KC_SCLN), CTRL_WIN(KC_QUOTE),
     CAPS_WORD, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, CTRL_SHIFT_T(KC_SLSH), ALT_SHIFT(_______),
-    TG(GAMING), KC_LALT, OSM(MOD_LCTL), MO(CURSOR), KC_LSFT, KC_BSPC, _______, KC_ENT, LT(CHARACTERS, KC_SPC), KC_LBRC, KC_RBRC, CTRL_ALT_SHIFT(_______)),
+    _______, KC_LALT, OSM(MOD_LCTL), MO(CURSOR), KC_LSFT, KC_BSPC, _______, KC_ENT, LT(CHARACTERS, KC_SPC), KC_LBRC, KC_RBRC, CTRL_ALT_SHIFT(_______)),
 
 [GAMING] = LAYOUT_ortho_5x12(
     _______, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, WIN(KC_SPC),
@@ -62,58 +62,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         In worst case scenario I can have global app that will listen to all keypresses and notify me
 */
 
-static const int RED  = 1;
-static const int MEGA = 2;
+static char SECONDS_10_KEYBIND[] = "u";     
+static char SECONDS_5_KEYBIND[] = "i";
 
-static void *RED_POINTER  = (void *)RED;
-static void* MEGA_POINTER = (void *)MEGA;
+static char RED[]  = "p";
+static char MEGA[] = "c";
 
-int process_item(void *item_arg) {
-    int item = *(int *)item_arg;
-    switch (item) {
-        case RED:
-            SEND_STRING("p");
-            break;
-        case MEGA:
-            SEND_STRING("o");
-            break;
-    }
+int send_notification_keystrokes(char *item, char* time_keybind) {
+    SEND_STRING(time_keybind);
+    SEND_STRING(item);
     return 0;
 }
 
-uint32_t say_10_seconds_left(uint32_t trigger_time, void *cb_arg) {
-    SEND_STRING("u");
-    return process_item(cb_arg);
+uint32_t seconds_left_5(uint32_t trigger_time, void *item) {
+    return send_notification_keystrokes(SECONDS_5_KEYBIND, item);
 }
 
-uint32_t say_5_seconds_left(uint32_t trigger_time, void *cb_arg) {
-    SEND_STRING("i");
-
-    return process_item(cb_arg);
+uint32_t seconds_left_10(uint32_t trigger_time, void *item) {
+    send_notification_keystrokes(SECONDS_10_KEYBIND, item);
+    defer_exec(5*1000, seconds_left_5, item);
     return 0;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // do this only on gaming layer
-    if (!layer_state_is(GAMING)) {
+    if (!record->event.pressed || !layer_state_is(GAMING)) {
         return true;
     }
 
     switch (keycode) {
     case KC_3:
-        // This is red
-        if (record->event.pressed) {
-            __attribute__ ((unused)) deferred_token token15s = defer_exec(15*1000, say_10_seconds_left, RED_POINTER);
-            __attribute__ ((unused)) deferred_token token20s = defer_exec(20*1000, say_5_seconds_left, RED_POINTER);
-        }
+        defer_exec(15*1000, seconds_left_10, RED);
         break;
-
     case KC_4:
-        // This is mega
-        if (record->event.pressed) {
-            __attribute__ ((unused)) deferred_token token15s = defer_exec(25*1000, say_10_seconds_left, MEGA_POINTER);
-            __attribute__ ((unused)) deferred_token token20s = defer_exec(30*1000, say_5_seconds_left, MEGA_POINTER);
-        }
+        defer_exec(25*1000, seconds_left_10, MEGA);
         break;
     }
     return true;
