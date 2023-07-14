@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "print.h"
 
 #define WIN RGUI
 #define CTRL_ALT_T LCA_T
@@ -74,12 +75,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 /*
     Plan, as I see it
-        * key `3` - start 25 seconds timer for red
-        * key `4` - start 35 seconds timer for mega
-        * key `u` - say team "10 seconds left"
-        * key `i` - say team "5 seconds left"
-        * key `o` - say team "mega"
-        * key `p` - say team "red"
+        * yio - MEGA 10, 5, spawned
+        * hjk - RED 10, 5, spawned
 
         So when, let's say, first timer expires, it send keypress to the game `u` `o` keys, and the game
         will print in the chat (I expect) that 10 seconds left, mega
@@ -87,25 +84,43 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         In worst case scenario I can have global app that will listen to all keypresses and notify me
 */
 
-static char SECONDS_10_KEYBIND[] = "u";
-static char SECONDS_5_KEYBIND[] = "i";
+enum ItemType { MEGA, RED };
 
-static char RED[]  = "p";
-static char MEGA[] = "c";
+typedef struct {
+    char *keybinds;
+    int   position;
+    enum ItemType item;
+} Item;
 
-int send_notification_keystrokes(char* time_keybind, char *item) {
-    SEND_STRING(time_keybind);
-    SEND_STRING(item);
-    return 0;
-}
+static Item RED_INFO = {
+    .keybinds =  "yui",
+    .position = 0,
+    .item     = RED
+};
 
-uint32_t seconds_left_5(uint32_t trigger_time, void *item) {
-    return send_notification_keystrokes(SECONDS_5_KEYBIND, item);
-}
+static Item MEGA_INFO = {
+    .keybinds = "hjk",
+    .position = 0,
+    .item     = MEGA
+};
 
-uint32_t seconds_left_10(uint32_t trigger_time, void *item) {
-    send_notification_keystrokes(SECONDS_10_KEYBIND, item);
-    defer_exec(5*1000, seconds_left_5, item);
+uint32_t send_notification(uint32_t trigger_time, void *i) {
+    Item *item = (Item *)i;
+    char key  = item->keybinds[item->position];
+    char str[1] = {key};
+
+    dprintf("%s in %i, sending %c letter\n",
+        item->item==MEGA ? "MEGA" : "RED",
+        5*(2-item->position),
+        key);
+
+    SEND_STRING(str);
+    item->position++;
+
+    if (item->position < strlen(item->keybinds)) {
+        defer_exec(5*1000, send_notification, item);
+    }
+
     return 0;
 }
 
@@ -117,11 +132,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
     case KC_3:
-        defer_exec(15*1000, seconds_left_10, RED);
-        break;
+            dprint("starting RED timer\n");
+            RED_INFO.position = 0;
+            defer_exec(15 * 1000, send_notification, &RED_INFO);
+            break;
     case KC_4:
-        defer_exec(25*1000, seconds_left_10, MEGA);
-        break;
+            dprint("starting MEGA timer\n");
+            MEGA_INFO.position = 0;
+            defer_exec(25 * 1000, send_notification, &MEGA_INFO);
+            break;
     }
     return true;
 }
