@@ -23,11 +23,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_LALT, OSM(MOD_LCTL), MO(CURSOR), KC_LSFT, KC_BSPC, _______, KC_ENT, LT(CHARACTERS, KC_SPC), KC_LBRC, KC_RBRC, CTRL_ALT_SHIFT(_______)),
 
 [GAMING] = LAYOUT_ortho_5x12(
-    _______, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, WIN(KC_SPC),
-    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, WIN_SHIFT_T(KC_P), CTRL_ALT_T(_______),
-    KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, WIN_T(KC_SCLN), CTRL_WIN(KC_QUOTE),
-    CAPS_WORD, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, CTRL_SHIFT_T(KC_SLSH), ALT_SHIFT(_______),
-    TG(BASE_LAYER), KC_LALT, OSM(MOD_LCTL), MO(CURSOR), KC_LSFT, KC_BSPC, _______, KC_ENT, LT(CHARACTERS, KC_SPC), KC_LBRC, KC_RBRC, CTRL_ALT_SHIFT(_______)),
+    KC_TILD, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_F1,
+    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, _______, _______,
+    KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, _______, _______,
+    KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_UP, _______,
+    TG(BASE_LAYER), KC_LALT, KC_LCTL, _______, KC_LSFT, KC_BSPC, KC_ENT, _______, KC_SPC, KC_LEFT, KC_DOWN, KC_RGHT),
 
 
 [CHARACTERS] = LAYOUT_ortho_5x12(
@@ -46,6 +46,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+// RGB lightning documentation:
+// https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgblight.md
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case CURSOR:
+            rgblight_enable_noeeprom();
+            rgblight_setrgb(RGB_BLUE);
+            break;
+        case CHARACTERS:
+            rgblight_enable_noeeprom();
+            rgblight_setrgb(RGB_YELLOW);
+            break;
+        case GAMING:
+            rgblight_enable_noeeprom();
+            rgblight_setrgb(RGB_TURQUOISE);
+            break;
+        default: // no colors for any other layers, or the default layer
+            rgblight_disable_noeeprom();
+            break;
+    }
+    return state;
+}
+
+
+#ifdef ENABLE_TIMER
 
 /*
     Plan, as I see it
@@ -101,26 +126,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-
-// RGB lightning documentation:
-// https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgblight.md
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-        case CURSOR:
-            rgblight_enable_noeeprom();
-            rgblight_setrgb(RGB_BLUE);
-            break;
-        case CHARACTERS:
-            rgblight_enable_noeeprom();
-            rgblight_setrgb(RGB_YELLOW);
-            break;
-        case GAMING:
-            rgblight_enable_noeeprom();
-            rgblight_setrgb(RGB_TURQUOISE);
-            break;
-        default: // no colors for any other layers, or the default layer
-            rgblight_disable_noeeprom();
-            break;
-    }
-    return state;
-}
+#endif

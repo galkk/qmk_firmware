@@ -1,5 +1,3 @@
-SRC += muse.c
-
 CAPS_WORD_ENABLE = yes
 
 # https://docs.qmk.fm/#/feature_audio?id=audio
