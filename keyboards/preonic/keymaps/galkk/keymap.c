@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "print.h"
 
 #define WIN RGUI
 #define CTRL_ALT_T LCA_T
@@ -14,6 +13,12 @@
 #define GAMING              1
 #define CHARACTERS          2
 #define CURSOR              3
+
+#define USB_POLLING_INTERVAL_MS 1
+
+#ifdef ENABLE_TIMER
+#include "print.h"
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE_LAYER] = LAYOUT_ortho_5x12(
