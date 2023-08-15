@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CAPS_WORD, KC_Z, KC_X, KC_C, KC_V, KC_B,                                        KC_N, KC_M, KC_COMM, KC_DOT, WIN_SHIFT_T(KC_SLSH), ALT_SHIFT_T(_______),
     _______, _______, _______, QK_LOCK,                                             MO(KEY_COMBINATIONS), KC_LBRC, KC_RBRC, CTRL_ALT_SHIFT(_______),
 
-    MO(CURSOR), KC_LCTL, _______,                                                   _______, KC_LGUI, MO(CHARACTERS),
+    TT(CURSOR), KC_LCTL, _______,                                                   _______, KC_LGUI, MO(CHARACTERS),
     KC_LSFT, KC_BSPC, KC_ENT,                                                       KC_RSFT, KC_RALT, KC_SPC
     
 ),
@@ -92,8 +92,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_AT, KC_COLN, KC_HASH, KC_PERC, _______,                             _______, KC_GRV, _______, _______, _______, POINTER_DEREFERENCE,
     _______, _______, _______, _______,                                             _______, KC_LPRN, KC_RPRN, _______,
 
-    KC_INSERT, KC_DELETE, _______,                                                  _______, _______, _______,
-    _______, _______, _______,                                                      _______, _______, _______
+    _______, _______, _______,                                                      _______, _______, _______,
+    KC_INSERT,KC_DELETE, _______,                                                   _______, _______, _______
 
 ),
 
