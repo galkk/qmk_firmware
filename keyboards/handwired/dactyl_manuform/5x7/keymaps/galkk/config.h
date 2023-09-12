@@ -19,4 +19,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL
 #define MASTER_RIGHT
-#define TAPPING_TOGGLE 1
+#define TAPPING_TOGGLE 2
