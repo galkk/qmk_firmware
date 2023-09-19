@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CAPS_WORD, KC_Z, KC_X, KC_C, KC_V, KC_B,                                        KC_N, KC_M, KC_COMM, KC_DOT, WIN_SHIFT_T(KC_SLSH), ALT_SHIFT_T(_______),
     _______, _______, _______, _______,                                             MO(KEY_COMBINATIONS), KC_LBRC, KC_RBRC, CTRL_ALT_SHIFT(_______),
 
-    TT(CURSOR), KC_LCTL, LM(CURSOR, MOD_LSFT),                                      QK_LOCK, _______, TT(CHARACTERS),
+    TT(CURSOR), KC_LCTL, LM(CURSOR, MOD_LSFT),                                      QK_LOCK, LCTL(KC_BSPC), TT(CHARACTERS),
     KC_LSFT, KC_BSPC, KC_ENT,                                                       LCTL(KC_ENTER), KC_RALT, KC_SPC
     
 ),
