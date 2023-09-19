@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______,                                             MO(KEY_COMBINATIONS), KC_LBRC, KC_RBRC, CTRL_ALT_SHIFT(_______),
 
     TT(CURSOR), KC_LCTL, LM(CURSOR, MOD_LSFT),                                      QK_LOCK, _______, TT(CHARACTERS),
-    KC_LSFT, KC_BSPC, KC_ENT,                                                       _______, KC_RALT, KC_SPC
+    KC_LSFT, KC_BSPC, KC_ENT,                                                       LCTL(KC_ENTER), KC_RALT, KC_SPC
     
 ),
 
