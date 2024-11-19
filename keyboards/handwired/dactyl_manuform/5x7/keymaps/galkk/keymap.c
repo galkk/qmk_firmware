@@ -54,6 +54,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
+
+// https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md
                                                                                 //  CTRL | ALT | SHIFT | WIN
 #define CTRL_ALT_T LCA_T                                                        //    X     X
 #define CTRL_SHIFT_T RCS_T                                                      //    X            X
@@ -73,9 +75,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE_LAYER] = LONG_LAYOUT(
 
-    _______, KC_1, KC_2, KC_3, KC_4, KC_5, _______,                                 _______, KC_6, KC_7, KC_8, KC_9, KC_0, WIN(KC_SPC),
-    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, _______,                                  _______, KC_Y, KC_U, KC_I, KC_O, CTRL_SHIFT_T(KC_P), CTRL_ALT_T(_______),
-    KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G, _______,                                  _______, KC_H, KC_J, KC_K, KC_L, WIN_T(KC_SCLN), CTRL_WIN(KC_QUOTE),
+    _______, KC_1, KC_2, KC_3, KC_4, KC_5, KC_PRINT_SCREEN,                         _______, KC_6, KC_7, KC_8, KC_9, KC_0, WIN(KC_SPC),
+    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_DELETE,                                KC_INSERT, KC_Y, KC_U, KC_I, KC_O, CTRL_SHIFT_T(KC_P), CTRL_ALT_T(_______),
+    KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_LEFT_GUI,                              _______, KC_H, KC_J, KC_K, KC_L, WIN_T(KC_SCLN), CTRL_WIN(KC_QUOTE),
     CAPS_WORD, KC_Z, KC_X, KC_C, KC_V, KC_B,                                        KC_N, KC_M, KC_COMM, KC_DOT, WIN_SHIFT_T(KC_SLSH), ALT_SHIFT_T(_______),
     _______, _______, _______, _______,                                             MO(KEY_COMBINATIONS), KC_LBRC, KC_RBRC, CTRL_ALT_SHIFT(_______),
 
